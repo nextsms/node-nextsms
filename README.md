@@ -1,1 +1,4 @@
-# js-client
+##  Work in Progress
+
+# NextSMS javascript-client
+
