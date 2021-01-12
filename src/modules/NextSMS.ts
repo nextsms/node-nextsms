@@ -84,13 +84,12 @@ class NextSMS {
     /**
      * root
      */
-    private ROOT_URL = 'https://messaging-service.co.tz/'
-
+    private ROOT_URL = 'https://messaging-service.co.tz/';
 
     /**
      *
      */
-    private base_url:string;
+    private base_url: string;
 
     /**
      *
@@ -106,7 +105,7 @@ class NextSMS {
             'Content-Type': 'application/json',
             Accept: 'application/json',
         };
-
+        this.base_url = '';
     }
 
     /**
@@ -125,7 +124,7 @@ class NextSMS {
      */
     single_destination(data: SMS): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.base_url= this.ROOT_URL + 'api/sms/v1'+ (this.enviroment === 'production') ? '' :'/test'
+            this.base_url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test';
             axios({
                 method: 'post',
                 url: `${this.base_url}/text/single`,
@@ -157,10 +156,10 @@ class NextSMS {
      */
     multiple_destinations(data: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.base_url= this.ROOT_URL + 'api/sms/v1'+ (this.enviroment === 'production') ? '' :'/test'
+            this.base_url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test';
             axios({
                 method: 'post',
-                url: `${this.base_url}/text/single`,    
+                url: `${this.base_url}/text/single`,
                 headers: this.header,
                 data: data,
             })
