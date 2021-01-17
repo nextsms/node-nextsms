@@ -1,32 +1,32 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
-interface SMS {
+export interface SMS {
     from: string;
-    to: number;
+    to: string;
     text: string;
 }
 
 ////
 interface Message1 {
     from: string;
-    to: number;
+    to: string;
     text: string;
 }
 
 interface multiple_messages_to_multiple_destinations {
-    messages: Message1[];
+    messages: Array<Message1>;
 }
 
 ///
 
 interface Message2 {
     from: string;
-    to: number[];
+    to: Array<number>;
     text: string;
 }
 
 interface multiple_messages_to_multiple_destinations1 {
-    messages: Message2[];
+    messages: Array<Message2>;
 }
 
 /////////////
@@ -98,7 +98,7 @@ class NextSMS {
      * @param enviroment
      */
     constructor(username: string, password: string, enviroment: 'testing' | 'production') {
-        this.key = Buffer.from(`${username}':'${password}`).toString('base64');
+        this.key = Buffer.from(`${username}:${password}`.toString(), 'binary').toString('base64');
         this.enviroment = enviroment;
         this.header = {
             Authorization: `Basic ${this.key}`,
@@ -124,18 +124,20 @@ class NextSMS {
      */
     single_destination(data: SMS): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.base_url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test';
+            // this.base_url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test';
+            // url: `${this.base_url}/text/single`,
             axios({
                 method: 'post',
-                url: `${this.base_url}/text/single`,
+                url: `https://messaging-service.co.tz/api/sms/v1/test/text/single`,
                 headers: this.header,
                 data: data,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
-                    reject(error.response);
+                .catch((error: AxiosError) => {
+                    console.log(error);
+                    reject(error);
                 });
         });
     }
@@ -154,19 +156,20 @@ class NextSMS {
      * * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#2936eed4-6027-45e7-92c9-fe1cd7df140b}
      * @returns {Promise}
      */
-    multiple_destinations(data: any): Promise<any> {
+    multiple_destinations(data: multiple_messages_to_multiple_destinations): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.base_url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test';
+            // this.base_url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test';
             axios({
                 method: 'post',
-                url: `${this.base_url}/text/single`,
+                // url: `${this.base_url}/text/single`,
+                url: `https://messaging-service.co.tz/api/sms/v1/test/text/text/multi`,
                 headers: this.header,
                 data: data,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -187,7 +190,9 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#b13825ab-8b49-45f5-a4cd-fb7d21aa975a }
      * @returns {Promise}
      */
-    multiple_messages_to_multiple_destinations_example1(data: multiple_messages_to_multiple_destinations) {
+    multiple_messages_to_multiple_destinations_example1(
+        data: multiple_messages_to_multiple_destinations1,
+    ): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -195,10 +200,10 @@ class NextSMS {
                 headers: this.header,
                 data: data,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -227,7 +232,7 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6916415a-4645-460d-bb3f-a6d6fbd60e4a}
      * @returns {Promise}
      */
-    multiple_messages_to_multiple_destinations(data: multiple_messages_to_multiple_destinations1) {
+    multiple_messages_to_multiple_destinations(data: multiple_messages_to_multiple_destinations1): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -235,10 +240,10 @@ class NextSMS {
                 headers: this.header,
                 data: data,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -274,7 +279,7 @@ class NextSMS {
      * @returns {Promise}
      *
      */
-    schedule_sms(data: schedule_sms) {
+    schedule_sms(data: schedule_sms): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -282,10 +287,10 @@ class NextSMS {
                 headers: this.header,
                 data: data,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -300,17 +305,17 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5fc5b186-c4dc-4de0-9d0f-baee93d53c7d}
      * @returns {Promise}
      */
-    get_delivery_reports() {
+    get_delivery_reports(): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
                 url: 'https://messaging-service.co.tz/api/sms/v1/reports',
                 headers: this.header,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -326,7 +331,7 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6402ce4e-d0d4-44ac-8606-a9d12a900974}
      * @returns {Promise}
      */
-    get_delivery_reports_with_message_id(messageId: number) {
+    get_delivery_reports_with_message_id(messageId: number): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
@@ -336,10 +341,10 @@ class NextSMS {
                     Accept: 'application/json',
                 },
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -354,7 +359,7 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#46fc5c9c-0cd4-4356-8cab-1e326e54940a}
      * @returns {Promise}
      */
-    get_delivery_reports_with_specific_date_range(sentSince: string, sentUntil: string) {
+    get_delivery_reports_with_specific_date_range(sentSince: string, sentUntil: string): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
@@ -364,10 +369,10 @@ class NextSMS {
                     Accept: 'application/json',
                 },
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -385,7 +390,7 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
      * @returns {Promise}
      */
-    get_all_sent_sms_logs(from: string, limit: number, offset: number) {
+    get_all_sent_sms_logs(from: string, limit: number, offset: number): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
@@ -395,10 +400,10 @@ class NextSMS {
                     Accept: 'application/json',
                 },
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -422,17 +427,17 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
      * @returns {Promise}
      */
-    get_all_sent_sms(from: string, to: string, sentSince: string, sentUntil: string) {
+    get_all_sent_sms(from: string, to: string, sentSince: string, sentUntil: string): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
                 url: `https://messaging-service.co.tz/api/sms/v1/logs?from=${from}&to=${to}&sentSince=${sentSince}&sentUntil=${sentUntil}`,
                 headers: this.header,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -456,7 +461,7 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#4d5c6a0a-9d16-45e2-ab8e-74211258ca00}
      * @returns {Promise}
      */
-    register_sub_customer(data: sub_customer) {
+    register_sub_customer(data: sub_customer): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -464,10 +469,10 @@ class NextSMS {
                 headers: this.header,
                 data: data,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -485,7 +490,7 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#d3bd992c-08a8-400d-9b52-41fe6afecf44 }
      * @returns {Promise}
      */
-    recharge_customer(data: any) {
+    recharge_customer(data: recharge_customer): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -493,10 +498,10 @@ class NextSMS {
                 headers: this.header,
                 data: data,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -517,7 +522,7 @@ class NextSMS {
      *  @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288}
      *  @returns {Promise}
      */
-    deduct_customer(data: deduct_customer) {
+    deduct_customer(data: deduct_customer): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -525,10 +530,10 @@ class NextSMS {
                 headers: this.header,
                 data: data,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
@@ -542,17 +547,17 @@ class NextSMS {
      *
      * @returns {Promise}
      */
-    get_sms_balance() {
+    get_sms_balance(): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
                 url: 'https://messaging-service.co.tz/api/sms/v1/balance',
                 headers: this.header,
             })
-                .then((response: any) => {
+                .then((response: AxiosResponse) => {
                     resolve(response.data);
                 })
-                .catch((error: any) => {
+                .catch((error: AxiosError) => {
                     reject(error.response);
                 });
         });
