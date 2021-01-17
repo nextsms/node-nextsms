@@ -55,20 +55,20 @@ import { Nextsms } from '@nextsms/js-client';
 
 // Populate the credetials
 const username = 'username';
-const passwor = 'password';
+const password = 'password';
 
 // Intiate with credentials
 let nextsms = new NextSMS( username, password , 'testing');
 
 // Setup the transaction
 let data = {
+    from:'NEXTSMS',
     to: "255123456789",
-    text: "Hello World",
-    // ..
+    text: "Hello World",    
 };
 
 // send sms
-nextsms.send_single(data)
+nextsms.single_destination(data)
     .then((data) => {
         // Print results
         console.log(data);
