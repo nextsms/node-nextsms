@@ -1,4 +1,7 @@
+// test('simple is instantiable', () => {
+//     expect(true).toBeInstanceOf(true);
+// });
 
-test('pesa is instantiable', () => {
-    expect(true).toBeInstanceOf(true);
+test('nextsms is instantiable', () => {
+    expect(true).toBe(true);
 });
