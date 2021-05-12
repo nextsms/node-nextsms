@@ -1,9 +1,9 @@
 {
     "name": "@nextsms/js-client",
-    "description": "NextSMS Nodejs",
+    "description": "NextSMS SDK for Nodejs",
     "license": "MIT",
     "version": "0.0.1",
-    "author": "NextSMS",
+    "author": "Alpha Olomi <alphaolomi@gmail.com>",
     "main": "lib/modules/index.js",
     "types": "lib/modules/index.d.ts",
     "keywords": [

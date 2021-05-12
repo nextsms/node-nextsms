@@ -25,7 +25,7 @@ interface Message2 {
     text: string;
 }
 
-interface multiple_messages_to_multiple_destinations1 {
+interface multiple_messages_to_multiple_different_destinations {
     messages: Array<Message2>;
 }
 
@@ -124,11 +124,10 @@ class NextSMS {
      */
     single_destination(data: SMS): Promise<any> {
         return new Promise((resolve, reject) => {
-            // this.base_url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test';
-            // url: `${this.base_url}/text/single`,
+            const _url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test' + '/single';
             axios({
                 method: 'post',
-                url: `https://messaging-service.co.tz/api/sms/v1/test/text/single`,
+                url: _url,
                 headers: this.header,
                 data: data,
             })
@@ -158,11 +157,10 @@ class NextSMS {
      */
     multiple_destinations(data: multiple_messages_to_multiple_destinations): Promise<any> {
         return new Promise((resolve, reject) => {
-            // this.base_url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test';
+            const _url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '' : '/test' + '/multi';
             axios({
                 method: 'post',
-                // url: `${this.base_url}/text/single`,
-                url: `https://messaging-service.co.tz/api/sms/v1/test/text/text/multi`,
+                url: _url,
                 headers: this.header,
                 data: data,
             })
@@ -190,8 +188,8 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#b13825ab-8b49-45f5-a4cd-fb7d21aa975a }
      * @returns {Promise}
      */
-    multiple_messages_to_multiple_destinations_example1(
-        data: multiple_messages_to_multiple_destinations1,
+    multiple_messages_to_multiple_destinations(
+        data: multiple_messages_to_multiple_destinations,
     ): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
@@ -232,7 +230,7 @@ class NextSMS {
      * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6916415a-4645-460d-bb3f-a6d6fbd60e4a}
      * @returns {Promise}
      */
-    multiple_messages_to_multiple_destinations(data: multiple_messages_to_multiple_destinations1): Promise<any> {
+    multiple_messages_to_multiple_different_destinations(data: multiple_messages_to_multiple_different_destinations): Promise<any> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -336,10 +334,7 @@ class NextSMS {
             axios({
                 method: 'get',
                 url: `https://messaging-service.co.tz/api/sms/v1/reports?messageId=${messageId}`,
-                headers: {
-                    Authorization: `Basic ${this.key}`,
-                    Accept: 'application/json',
-                },
+                headers: this.header,
             })
                 .then((response: AxiosResponse) => {
                     resolve(response.data);
@@ -364,10 +359,7 @@ class NextSMS {
             axios({
                 method: 'get',
                 url: `https://messaging-service.co.tz/api/sms/v1/reports?sentSince${sentSince}=&sentUntil=${sentUntil}`,
-                headers: {
-                    Authorization: `Basic ${this.key}`,
-                    Accept: 'application/json',
-                },
+                headers: this.header,
             })
                 .then((response: AxiosResponse) => {
                     resolve(response.data);
@@ -395,10 +387,7 @@ class NextSMS {
             axios({
                 method: 'get',
                 url: `https://messaging-service.co.tz/api/sms/v1/logs?from=${from}&limit=${limit}&offset=${offset}`,
-                headers: {
-                    Authorization: `Basic ${this.key}`,
-                    Accept: 'application/json',
-                },
+                headers: this.header,
             })
                 .then((response: AxiosResponse) => {
                     resolve(response.data);
