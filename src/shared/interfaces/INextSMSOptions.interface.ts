@@ -1,4 +1,4 @@
 export interface INextSMSOptions {
-    username: string;
-    password?: string;
+  username: string;
+  password?: string;
 }

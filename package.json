@@ -1,42 +1,63 @@
 {
-    "name": "@nextsms/js-client",
-    "description": "NextSMS SDK for Nodejs",
-    "license": "MIT",
-    "version": "0.0.4",
-    "author": "Alpha Olomi <alphaolomi@gmail.com>",
-    "main": "lib/modules/index.js",
-    "types": "lib/modules/index.d.ts",
-    "keywords": [
-        "nextsms",
-        "bulksms",
-        "tanzania",
-        "nextbyte"
-    ],
-    "scripts": {
-        "lint": "eslint --fix \"./src/**/*.ts\"",
-        "format": "prettier --write \"src/**/*.ts\"",
-        "prebuild": "npm run lint && npm run format",
-        "build": "tsc",
-        "test": "jest --config jestconfig.json"
-    },
-    "devDependencies": {
-        "@types/jest": "^26.0.23",
-        "@typescript-eslint/eslint-plugin": "^4.25.0",
-        "@typescript-eslint/parser": "^4.25.0",
-        "codecov": "^3.8.2",
-        "eslint": "^7.27.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-prettier": "^3.4.0",
-        "jest": "^26.6.3",
-        "prettier": "^2.3.0",
-        "ts-jest": "^26.5.6",
-        "tslint-config-prettier": "^1.18.0",
-        "typescript": "^4.2.4"
-    },
-    "files": [
-        "lib/**/*"
-    ],
-    "dependencies": {
-        "axios": "^0.21.1"
+  "name": "@nextsms/js-client",
+  "description": "NextSMS SDK for Nodejs",
+  "license": "MIT",
+  "version": "0.0.4",
+  "author": "Alpha Olomi <alphaolomi@gmail.com>",
+  "main": "dist/index.js",
+  "module": "dist/nextsms-node.esm.js",
+  "typings": "dist/index.d.ts",
+  "keywords": [
+    "nextsms",
+    "bulksms",
+    "tanzania",
+    "nextbyte"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "fix": "tsdx lint --fix",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "docs:api": "typedoc --out docs src/index.ts  --readme README.md --name 'NextSMS Nodejs API Docs'  --theme minimal --highlightTheme dark-plus"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^5.0.1",
+    "husky": "^7.0.1",
+    "size-limit": "^5.0.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.0",
+    "typedoc": "^0.21.4",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
     }
+  },
+  "size-limit": [
+    {
+      "path": "dist/js-client.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/js-client.esm.js",
+      "limit": "10 KB"
+    }
+  ]
+
 }

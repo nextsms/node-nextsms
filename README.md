@@ -1,6 +1,6 @@
-<h2 align="center"> NextSMS for Nodejs<h2>
+<h2 align="center"> NextSMS for Nodejs</h2>
+<p align="center"><a href="https://github.com/nextsms/js-client/actions/workflows/node.js.yml"><img src="https://github.com/nextsms/js-client/actions/workflows/node.js.yml/badge.svg" alt="Tests"></a></p>
 
-[![Tests](https://github.com/nextsms/js-client/actions/workflows/node.js.yml/badge.svg)](https://github.com/nextsms/js-client/actions/workflows/node.js.yml)
 
 <br>
 
@@ -37,7 +37,7 @@ let data = {
 };
 
 // send sms
-nextsms.single_destination(data)
+nextsms.singleDestination(data)
     .then((data) => {
         // Print results
         console.log(data);
@@ -50,7 +50,7 @@ nextsms.single_destination(data)
 ### Testing
 
 ```bash
-npm test
+yarn test
 ```
 
 ## Opening Issues
