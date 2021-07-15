@@ -1,68 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-
-export interface SMS {
-  from: string;
-  to: string;
-  text: string;
-}
-
-////
-interface Message1 {
-  from: string;
-  to: string;
-  text: string;
-}
-
-interface multiple_messages_to_multiple_destinations {
-  messages: Array<Message1>;
-}
-
-///
-
-interface Message2 {
-  from: string;
-  to: Array<number>;
-  text: string;
-}
-
-interface multiple_messages_to_multiple_different_destinations {
-  messages: Array<Message2>;
-}
-
-/////////////
-interface schedule_sms {
-  from: string;
-  to: string;
-  text: string;
-  date: string;
-  time: string;
-}
-
-interface sub_customer {
-  first_name: string;
-  last_name: string;
-  username: string;
-  email: string;
-  phone_number: string;
-  account_type: string;
-  sms_price: string;
-}
-
-interface recharge_customer {
-  email: string;
-  smscount: number;
-}
-
-interface deduct_customer {
-  email: string;
-  smscount: number;
-}
-
-interface Options {
-  username: string;
-  password: string;
-  enviroment: 'testing' | 'production';
-}
+import {
+  deductCustomer,
+  multipleMessagesToMultipleDestinations,
+  multipleMessagesToMultipleDifferentDestinations,
+  Options,
+  rechargeCustomer,
+  scheduleSms,
+  SMS,
+  subCustomer,
+} from '../interfaces';
 
 /**
  * NextSMS
@@ -130,7 +76,7 @@ class NextSMS {
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5e466440-829b-4b56-be32-b681e4f81227}
    * @returns {Promise}
    */
-  single_destination(data: SMS): Promise<any> {
+  singleDestination(data: SMS): Promise<any> {
     return new Promise((resolve, reject) => {
       const _url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment !== 'production') ? '/test' : '' + '/single';
       axios({
@@ -163,7 +109,7 @@ class NextSMS {
    * * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#2936eed4-6027-45e7-92c9-fe1cd7df140b}
    * @returns {Promise}
    */
-  multiple_destinations(data: multiple_messages_to_multiple_destinations): Promise<any> {
+  multipleDestinations(data: multipleMessagesToMultipleDestinations): Promise<any> {
     return new Promise((resolve, reject) => {
       const _url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '/test' : '' + '/multi';
       axios({
@@ -196,7 +142,7 @@ class NextSMS {
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#b13825ab-8b49-45f5-a4cd-fb7d21aa975a }
    * @returns {Promise}
    */
-  multiple_messages_to_multiple_destinations(data: multiple_messages_to_multiple_destinations): Promise<any> {
+  multipleMessagesToMultipleDestinations(data: multipleMessagesToMultipleDestinations): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
@@ -236,9 +182,7 @@ class NextSMS {
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6916415a-4645-460d-bb3f-a6d6fbd60e4a}
    * @returns {Promise}
    */
-  multiple_messages_to_multiple_different_destinations(
-    data: multiple_messages_to_multiple_different_destinations
-  ): Promise<any> {
+  multipleMessagesToMultipleDifferentDestinations(data: multipleMessagesToMultipleDifferentDestinations): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
@@ -285,7 +229,7 @@ class NextSMS {
    * @returns {Promise}
    *
    */
-  schedule_sms(data: schedule_sms): Promise<any> {
+  scheduleSms(data: scheduleSms): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
@@ -311,7 +255,7 @@ class NextSMS {
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5fc5b186-c4dc-4de0-9d0f-baee93d53c7d}
    * @returns {Promise}
    */
-  get_delivery_reports(): Promise<any> {
+  getDeliveryReports(): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
@@ -337,7 +281,7 @@ class NextSMS {
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6402ce4e-d0d4-44ac-8606-a9d12a900974}
    * @returns {Promise}
    */
-  get_delivery_reports_with_message_id(messageId: number): Promise<any> {
+  getDeliveryReportsWithMessageId(messageId: number): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
@@ -362,7 +306,7 @@ class NextSMS {
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#46fc5c9c-0cd4-4356-8cab-1e326e54940a}
    * @returns {Promise}
    */
-  get_delivery_reports_with_specific_date_range(sentSince: string, sentUntil: string): Promise<any> {
+  getDeliveryReportsWithSpecificDateRange(sentSince: string, sentUntil: string): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
@@ -390,7 +334,7 @@ class NextSMS {
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
    * @returns {Promise}
    */
-  get_all_sent_sms_logs(from: string, limit: number, offset: number): Promise<any> {
+  getAllSentSmsLogs(from: string, limit: number, offset: number): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
@@ -424,7 +368,7 @@ class NextSMS {
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
    * @returns {Promise}
    */
-  get_all_sent_sms(from: string, to: string, sentSince: string, sentUntil: string): Promise<any> {
+  getAllSentSms(from: string, to: string, sentSince: string, sentUntil: string): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
@@ -445,26 +389,34 @@ class NextSMS {
    * - Sub Customer
    *   - POST Register Sub Customer
    * {
-   *     first_name = 'Api',
-   *     last_name = 'Customer',
+   *     firstName = 'Api',
+   *     lastName = 'Customer',
    *     username = 'apicust',
    *     email = 'apicust@customer.com',
-   *     phone_number = '0738234339',
-   *     account_type = 'Sub Customer (Reseller)',
-   *     sms_price = 20,
+   *     phoneNumber = '0738234339',
+   *     accountType = 'Sub Customer (Reseller)',
+   *     smsPrice = 20,
    * }
    *
-   * @param data sub_customer
+   * @param data subCustomer
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#4d5c6a0a-9d16-45e2-ab8e-74211258ca00}
    * @returns {Promise}
    */
-  register_sub_customer(data: sub_customer): Promise<any> {
+  registerSubcustomer(data: subCustomer): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
         url: 'https://messaging-service.co.tz/api/reseller/v1/sub_customer/create',
         headers: this.header,
-        data: data,
+        data: {
+          first_name: data.firstName,
+          last_name: data.lastName,
+          username: data.username,
+          email: data.email,
+          phone_number: data.phoneNumber,
+          account_type: data.accountType,
+          sms_price: data.smsPrice,
+        },
       })
         .then((response: AxiosResponse) => {
           resolve(response.data);
@@ -483,11 +435,11 @@ class NextSMS {
    *      smscount = 5000
    *  }
    *
-   * @param data recharge_customer
+   * @param data rechargeCustomer
    * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#d3bd992c-08a8-400d-9b52-41fe6afecf44 }
    * @returns {Promise}
    */
-  recharge_customer(data: recharge_customer): Promise<any> {
+  rechargeCustomer(data: rechargeCustomer): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
@@ -515,11 +467,11 @@ class NextSMS {
    *      smscount = 2000
    *  }
    *
-   *  @param data deduct_customer
+   *  @param data deductCustomer
    *  @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288}
    *  @returns {Promise}
    */
-  deduct_customer(data: deduct_customer): Promise<any> {
+  deductCustomer(data: deductCustomer): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
@@ -544,7 +496,7 @@ class NextSMS {
    *
    * @returns {Promise}
    */
-  get_sms_balance(): Promise<any> {
+  getSmsBalance(): Promise<any> {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
