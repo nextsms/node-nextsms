@@ -1,7 +1,9 @@
-<h2 align="center"> NextSMS for Nodejs<h2>
+<h2 align="center"> NextSMS for Nodejs</h2>
 
-[![Tests](https://github.com/nextsms/js-client/actions/workflows/node.js.yml/badge.svg)](https://github.com/nextsms/js-client/actions/workflows/node.js.yml)
-
+<p align="center">
+<a href="https://github.com/nextsms/js-client/actions/workflows/node.js.yml"> <img src="https://github.com/nextsms/js-client/actions/workflows/node.js.yml/badge.svg" alt="Tests">  </a>
+</p>
+    
 <br>
 
 The **NextSMS SDK** allows developers to easily intergrate [NextSMS](https://nextsms.co.tz/) solutions in their Javascript code, and build robust applications and software.
