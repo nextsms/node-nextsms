@@ -1,4 +1,5 @@
 <h2 align="center"> NextSMS for Nodejs</h2>
+<p align="center"><a href="https://github.com/nextsms/js-client/actions/workflows/node.js.yml"><img src="https://github.com/nextsms/js-client/actions/workflows/node.js.yml/badge.svg" alt="Tests"></a></p>
 
 <p align="center">
 <a href="https://github.com/nextsms/js-client/actions/workflows/node.js.yml"> <img src="https://github.com/nextsms/js-client/actions/workflows/node.js.yml/badge.svg" alt="Tests">  </a>
@@ -6,8 +7,7 @@
     
 <br>
 
-The **NextSMS SDK** allows developers to easily intergrate [NextSMS](https://nextsms.co.tz/) solutions in their Javascript code, and build robust applications and software.
-
+The **NextSMS SDK** allows developers to easily integrate [NextSMS](https://nextsms.co.tz/) solutions in their Javascript code, and build robust applications and software.
 
 ## Documentation
 
@@ -15,55 +15,54 @@ Take a look at the [SDK docs here](hhttps://nextsms.github.io/js-client/).
 
 ## Usage
 
-> *NOTE*: 
-> **Test Mode** ONLY Single destination and Multiple destinations supprt testing mode.
-
+> _NOTE_:
+> **Test Mode** ONLY Single destination and Multiple destinations support testing mode.
 
 ### Quick Examples
 
 ```js
 import { Nextsms } from '@nextsms/js-client';
 
-// Populate the credetials
+// Populate the credentials
 const username = 'username';
 const password = 'password';
 
-// Intiate with credentials
-let nextsms = new NextSMS( username, password , 'testing');
+// Initiate with credentials
+let nextsms = new NextSMS(username, password, 'testing');
 
 // Setup the transaction
 let data = {
-    from:'NEXTSMS',
-    to: "255123456789",
-    text: "Hello World",    
+  from: 'NEXTSMS',
+  to: '255123456789',
+  text: 'Hello World',
 };
 
 // send sms
-nextsms.single_destination(data)
-    .then((data) => {
-        // Print results
-        console.log(data);
-    })
-    .catch((e) => {
-        console.log('error: ' + e);
-    });
+nextsms
+  .singleDestination(data)
+  .then(data => {
+    // Print results
+    console.log(data);
+  })
+  .catch(e => {
+    console.log('error: ' + e);
+  });
 ```
 
 ### Testing
 
 ```bash
-npm test
+yarn test
 ```
 
 ## Opening Issues
 
 If you have a feature request or you encounter a bug, please file an issue on [our issue tracker on GitHub](https://github.com/nextsms/js-client/issues).
 
-
 ## Credits
 
--   [Alpha Olomi](https://github.com/alphaolomi)
--   [All Contributors](../../contributors)
+- [Alpha Olomi](https://github.com/alphaolomi)
+- [All Contributors](../../contributors)
 
 ## License
 

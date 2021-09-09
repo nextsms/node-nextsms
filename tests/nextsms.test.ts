@@ -3,5 +3,5 @@
 // });
 
 test('nextsms is instantiable', () => {
-    expect(true).toBe(true);
+  expect(true).toBe(true);
 });
