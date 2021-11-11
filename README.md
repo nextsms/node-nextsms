@@ -1,9 +1,5 @@
 <h2 align="center"> NextSMS for Nodejs</h2>
 <p align="center"><a href="https://github.com/nextsms/js-client/actions/workflows/node.js.yml"><img src="https://github.com/nextsms/js-client/actions/workflows/node.js.yml/badge.svg" alt="Tests"></a></p>
-
-<p align="center">
-<a href="https://github.com/nextsms/js-client/actions/workflows/node.js.yml"> <img src="https://github.com/nextsms/js-client/actions/workflows/node.js.yml/badge.svg" alt="Tests">  </a>
-</p>
     
 <br>
 
@@ -19,6 +15,13 @@ Take a look at the [SDK docs here](hhttps://nextsms.github.io/js-client/).
 > **Test Mode** ONLY Single destination and Multiple destinations support testing mode.
 
 ### Quick Examples
+
+
+```sh
+yarn add @nextsms/js-client
+# or
+npm i @nextsms/js-client
+```
 
 ```js
 import { Nextsms } from '@nextsms/js-client';
