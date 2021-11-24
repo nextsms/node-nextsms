@@ -1,1 +1,3 @@
-export * from './modules/NextSMS';
+import NextSMS from './modules/NextSMS';
+
+export default NextSMS;
