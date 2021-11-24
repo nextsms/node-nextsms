@@ -24,8 +24,8 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint src tests",
-    "fix": "tsdx lint --fix src tests",    
+    "lint": "tsdx lint",
+    "fix": "tsdx lint --fix",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "docs:api": "typedoc --out docs src/index.ts  --readme README.md --name 'NextSMS Nodejs API Docs'"
@@ -58,5 +58,4 @@
       "limit": "10 KB"
     }
   ]
-
 }
