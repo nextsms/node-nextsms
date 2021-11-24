@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import {
   deductCustomer,
   multipleMessagesToMultipleDestinations,
@@ -12,7 +12,18 @@ import {
 
 /**
  * NextSMS
- * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#intro}
+ * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#intro}
+ * 
+ * 
+ * ```typescript
+ * import NextSMS from '@nextsms/js-client';
+ * 
+ * let nextsms = new NextSMS({
+ *    username: 'username', 
+ *    password: 'password',
+ *    environment: 'testing' 
+ * });
+ * ```
  *
  * @class NextSMS
  * @since 0.0.1
@@ -21,9 +32,9 @@ import {
  */
 class NextSMS {
   /**
-   * enviroment
+   * environment
    */
-  private enviroment: 'testing' | 'production';
+  private environment: 'testing' | 'production';
 
   /**
    * key
@@ -33,33 +44,28 @@ class NextSMS {
   /**
    * header
    */
-  private header: any;
+  private header: AxiosRequestHeaders;
 
   /**
    * root
    */
   private ROOT_URL = 'https://messaging-service.co.tz/';
 
-  /**
-   *
-   */
-  // private base_url: string;
 
   /**
    *
-   * @param username
-   * @param password
-   * @param enviroment
+   * @param username Options['username']  
+   * @param password Options['password']
+   * @param environment Options['environment']
    */
-  constructor({ username, password, enviroment }: Options) {
+  constructor({ username, password, environment = 'production' }: Options) {
     this.key = Buffer.from(`${username}:${password}`.toString(), 'binary').toString('base64');
-    this.enviroment = enviroment;
+    this.environment = environment;
     this.header = {
       Authorization: `Basic ${this.key}`,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     };
-    // this.base_url = '';
   }
 
   /**
@@ -73,12 +79,12 @@ class NextSMS {
    *  text = 'Your message'
    * }
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5e466440-829b-4b56-be32-b681e4f81227}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5e466440-829b-4b56-be32-b681e4f81227}
    * @returns {Promise}
    */
   singleDestination(data: SMS): Promise<any> {
     return new Promise((resolve, reject) => {
-      const _url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment !== 'production') ? '/test' : '' + '/single';
+      const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/single`;
       axios({
         method: 'post',
         url: _url,
@@ -106,12 +112,12 @@ class NextSMS {
    *  text = 'Your message'
    * }
    *
-   * * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#2936eed4-6027-45e7-92c9-fe1cd7df140b}
+   * * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#2936eed4-6027-45e7-92c9-fe1cd7df140b}
    * @returns {Promise}
    */
   multipleDestinations(data: multipleMessagesToMultipleDestinations): Promise<any> {
     return new Promise((resolve, reject) => {
-      const _url = this.ROOT_URL + 'api/sms/v1' + (this.enviroment === 'production') ? '/test' : '' + '/multi';
+      const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/multi`;
       axios({
         method: 'post',
         url: _url,
@@ -139,7 +145,7 @@ class NextSMS {
    * @param data
    *
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#b13825ab-8b49-45f5-a4cd-fb7d21aa975a }
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#b13825ab-8b49-45f5-a4cd-fb7d21aa975a }
    * @returns {Promise}
    */
   multipleMessagesToMultipleDestinations(data: multipleMessagesToMultipleDestinations): Promise<any> {
@@ -179,7 +185,7 @@ class NextSMS {
    * }
    *
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6916415a-4645-460d-bb3f-a6d6fbd60e4a}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6916415a-4645-460d-bb3f-a6d6fbd60e4a}
    * @returns {Promise}
    */
   multipleMessagesToMultipleDifferentDestinations(data: multipleMessagesToMultipleDifferentDestinations): Promise<any> {
@@ -206,13 +212,13 @@ class NextSMS {
    *   from - your Sender ID
    *   to - recipient phone number with the format begin with 255
    *   text - your text message
-   *   date - date of the day to which you want to send your sms, format of Year-month-date exapmle:2020-10-01
-   *   time - time of the day to which you want to send your sms, 24 hours format exapmle:12:00
+   *   date - date of the day to which you want to send your sms, format of Year-month-date example: 2020-10-01
+   *   time - time of the day to which you want to send your sms, 24 hours format example: 12:00
    *
    *   Optional parameters to the schedule sms
    *   repeat - you can add this parameter when you want your sms to be repeated. This must be with these values in order to work: hourly, daily, weekly or monthly
-   *   start_date - this parameter defines the date from this your sms can start sending, format of Year-month-date exapmle:2020-10-01.
-   *   end_date - this parameter defines the date from this your sms can end sending, format of Year-month-date exapmle:2021-01-01.
+   *   start_date - this parameter defines the date from this your sms can start sending, format of Year-month-date example: 2020-10-01.
+   *   end_date - this parameter defines the date from this your sms can end sending, format of Year-month-date example: 2021-01-01.
    *
    *
    *   {
@@ -222,7 +228,7 @@ class NextSMS {
    *     date: '2020-10-01',
    *     time: '12:00',
    *   }
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#59cc2941-482b-45ab-9721-a7abffc83bba}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#59cc2941-482b-45ab-9721-a7abffc83bba}
    *
    * @param data
    *
@@ -252,7 +258,7 @@ class NextSMS {
    *
    * GET Get delivery reports with messageId
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5fc5b186-c4dc-4de0-9d0f-baee93d53c7d}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5fc5b186-c4dc-4de0-9d0f-baee93d53c7d}
    * @returns {Promise}
    */
   getDeliveryReports(): Promise<any> {
@@ -278,7 +284,7 @@ class NextSMS {
    * @param messageId
    *
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6402ce4e-d0d4-44ac-8606-a9d12a900974}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6402ce4e-d0d4-44ac-8606-a9d12a900974}
    * @returns {Promise}
    */
   getDeliveryReportsWithMessageId(messageId: number): Promise<any> {
@@ -303,7 +309,7 @@ class NextSMS {
    * @param sentSince
    * @param sentUntil
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#46fc5c9c-0cd4-4356-8cab-1e326e54940a}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#46fc5c9c-0cd4-4356-8cab-1e326e54940a}
    * @returns {Promise}
    */
   getDeliveryReportsWithSpecificDateRange(sentSince: string, sentUntil: string): Promise<any> {
@@ -331,7 +337,7 @@ class NextSMS {
    * @param limit
    * @param offset
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
    * @returns {Promise}
    */
   getAllSentSmsLogs(from: string, limit: number, offset: number): Promise<any> {
@@ -365,7 +371,7 @@ class NextSMS {
    * @param sentUntil string
    *
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
    * @returns {Promise}
    */
   getAllSentSms(from: string, to: string, sentSince: string, sentUntil: string): Promise<any> {
@@ -399,7 +405,7 @@ class NextSMS {
    * }
    *
    * @param data subCustomer
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#4d5c6a0a-9d16-45e2-ab8e-74211258ca00}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#4d5c6a0a-9d16-45e2-ab8e-74211258ca00}
    * @returns {Promise}
    */
   registerSubcustomer(data: subCustomer): Promise<any> {
@@ -436,7 +442,7 @@ class NextSMS {
    *  }
    *
    * @param data rechargeCustomer
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#d3bd992c-08a8-400d-9b52-41fe6afecf44 }
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#d3bd992c-08a8-400d-9b52-41fe6afecf44 }
    * @returns {Promise}
    */
   rechargeCustomer(data: rechargeCustomer): Promise<any> {
@@ -468,7 +474,7 @@ class NextSMS {
    *  }
    *
    *  @param data deductCustomer
-   *  @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288}
+   *  {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288}
    *  @returns {Promise}
    */
   deductCustomer(data: deductCustomer): Promise<any> {
@@ -492,7 +498,7 @@ class NextSMS {
    *
    * Get sms balance
    *
-   * @see {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288}
+   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288}
    *
    * @returns {Promise}
    */

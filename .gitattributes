@@ -6,5 +6,6 @@
 /.gitignore         export-ignore
 /.travis.yml        export-ignore
 /docs               export-ignore
+/examples           export-ignore
 /.editorconfig      export-ignore
 /.prettierrc        export-ignore
