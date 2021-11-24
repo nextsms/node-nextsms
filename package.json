@@ -29,6 +29,7 @@
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
+    "docs:api": "typedoc --out docs src/index.ts  --readme README.md --name 'NextSMS Nodejs API Docs'"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.3",
