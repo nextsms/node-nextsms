@@ -13,15 +13,15 @@ import {
 /**
  * NextSMS
  * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#intro}
- * 
- * 
+ *
+ *
  * ```typescript
  * import NextSMS from '@nextsms/js-client';
- * 
+ *
  * let nextsms = new NextSMS({
- *    username: 'username', 
+ *    username: 'username',
  *    password: 'password',
- *    environment: 'testing' 
+ *    environment: 'testing'
  * });
  * ```
  *
@@ -51,10 +51,9 @@ class NextSMS {
    */
   private ROOT_URL = 'https://messaging-service.co.tz/';
 
-
   /**
    *
-   * @param username Options['username']  
+   * @param username Options['username']
    * @param password Options['password']
    * @param environment Options['environment']
    */

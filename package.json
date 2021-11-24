@@ -24,9 +24,8 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint src tests",
-    "fix": "tsdx lint --fix src tests",
-    "prepare": "tsdx build",
+    "lint": "tsdx lint",
+    "fix": "tsdx lint --fix",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "docs:api": "typedoc --out docs src/index.ts  --readme README.md --name 'NextSMS Nodejs API Docs'"
@@ -46,7 +45,7 @@
   "peerDependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "tsdx fix"
     }
   },
   "size-limit": [
@@ -59,5 +58,4 @@
       "limit": "10 KB"
     }
   ]
-
 }
