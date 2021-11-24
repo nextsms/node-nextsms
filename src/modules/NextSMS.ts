@@ -74,9 +74,9 @@ class NextSMS {
    *
    *
    * {
-   *  from = 'NEXTSMS',
-   *  to = '255716718040',
-   *  text = 'Your message'
+   *  from : 'NEXTSMS',
+   *  to : '255716718040',
+   *  text : 'Your message'
    * }
    *
    * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5e466440-829b-4b56-be32-b681e4f81227}
@@ -84,7 +84,7 @@ class NextSMS {
    */
   singleDestination(data: SMS): Promise<any> {
     return new Promise((resolve, reject) => {
-      const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/single`;
+      const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/text/single`;
       axios({
         method: 'post',
         url: _url,
@@ -117,7 +117,7 @@ class NextSMS {
    */
   multipleDestinations(data: multipleMessagesToMultipleDestinations): Promise<any> {
     return new Promise((resolve, reject) => {
-      const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/multi`;
+      const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/text/multi`;
       axios({
         method: 'post',
         url: _url,

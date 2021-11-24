@@ -18,7 +18,7 @@ Take a look at the [SDK docs here](hhttps://nextsms.github.io/js-client/).
 ### Quick Examples
 
 ```js
-import { Nextsms } from '@nextsms/js-client';
+import NextSMS from '@nextsms/js-client';
 
 // Populate the credentials
 const username = 'username';
