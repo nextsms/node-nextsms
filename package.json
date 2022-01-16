@@ -31,13 +31,13 @@
     "docs:api": "typedoc --out docs src/index.ts  --readme README.md --name 'NextSMS Nodejs API Docs'"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.3",
+    "@size-limit/preset-small-lib": "^7.0.5",
     "husky": "^7.0.4",
-    "size-limit": "^7.0.3",
+    "size-limit": "^7.0.5",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
-    "typedoc": "^0.22.9",
-    "typescript": "^4.5.2"
+    "typedoc": "^0.22.10",
+    "typescript": "^4.5.4"
   },
   "dependencies": {
     "axios": "^0.24.0"
