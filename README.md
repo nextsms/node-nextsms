@@ -28,9 +28,41 @@ import NextSMS from '@nextsms/js-client';
 // Populate the credentials
 const username = 'username';
 const password = 'password';
+const apiKey = null';
 
 // Initiate with credentials
-let nextsms = new NextSMS({ username, password, environment: 'testing' });
+let nextsms = new NextSMS({ username, password, apiKey, environment: 'testing' });
+
+const data = {
+  from: 'NEXTSMS',
+  to: '255123456789',
+  text: 'Hello World',
+};
+
+// Send the sms
+nextsms
+  .singleDestination(data)
+  .then(data => {
+    // Print results
+    console.log(data);
+  })
+  .catch(error => {
+    console.log('error: ' + error);
+  });
+```
+
+## Using base64 api key
+
+```js
+import NextSMS from '@nextsms/js-client';
+
+// Populate the credentials
+const username = null;
+const password = null;
+const apiKey = 'yourBase64Key'; // this is generated on https://www.blitter.se/utils/basic-authentication-header-generator/ as mentioned on nextsms api documentation.
+
+// Initiate with credentials
+let nextsms = new NextSMS({ username, password, apiKey, environment: 'testing' });
 
 const data = {
   from: 'NEXTSMS',
