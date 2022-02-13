@@ -59,7 +59,8 @@ export interface deductCustomer {
  * Options for the NextSMS class
  */
 export interface Options {
-  username: string;
-  password: string;
+  username: string | null;
+  password: string | null;
+  apiKey: string | null;
   environment: 'testing' | 'production';
 }

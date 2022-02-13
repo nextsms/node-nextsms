@@ -55,10 +55,11 @@ class NextSMS {
    *
    * @param username Options['username']
    * @param password Options['password']
+   * @param apiKey Options['apiKey']
    * @param environment Options['environment']
    */
-  constructor({ username, password, environment = 'production' }: Options) {
-    this.key = Buffer.from(`${username}:${password}`.toString(), 'binary').toString('base64');
+  constructor({ username, password, apiKey, environment = 'production' }: Options) {
+    this.key = Buffer.from(`${username}:${password}`.toString(), 'binary').toString('base64') ?? apiKey;
     this.environment = environment;
     this.header = {
       Authorization: `Basic ${this.key}`,
