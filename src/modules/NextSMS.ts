@@ -6,7 +6,8 @@ import {
   Options,
   rechargeCustomer,
   scheduleSms,
-  SMS,
+  singleMessageSingleDestination,
+  singleMessageMultipleDestinations,
   subCustomer,
 } from '../interfaces';
 
@@ -82,7 +83,7 @@ class NextSMS {
    * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5e466440-829b-4b56-be32-b681e4f81227}
    * @returns {Promise}
    */
-  singleDestination(data: SMS): Promise<any> {
+  singleDestination(data: singleMessageSingleDestination): Promise<any> {
     return new Promise((resolve, reject) => {
       const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/text/single`;
       axios({
@@ -115,9 +116,9 @@ class NextSMS {
    * * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#2936eed4-6027-45e7-92c9-fe1cd7df140b}
    * @returns {Promise}
    */
-  multipleDestinations(data: multipleMessagesToMultipleDestinations): Promise<any> {
+  multipleDestinations(data: singleMessageMultipleDestinations): Promise<any> {
     return new Promise((resolve, reject) => {
-      const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/text/multi`;
+      const _url = `${this.ROOT_URL}api/sms/v1${this.environment !== 'production' ? '/test' : ''}/text/single`;
       axios({
         method: 'post',
         url: _url,

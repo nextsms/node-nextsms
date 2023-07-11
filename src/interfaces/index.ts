@@ -1,29 +1,23 @@
-export interface SMS {
-  from: string;
-  to: string;
-  text: string;
-}
-
-export interface Message1 {
+export interface singleMessageSingleDestination {
   from: string;
   to: string;
   text: string;
 }
 
 export interface multipleMessagesToMultipleDestinations {
-  messages: Array<Message1>;
+  messages: Array<singleMessageSingleDestination>;
 }
 
 ///
 
-export interface Message2 {
+export interface singleMessageMultipleDestinations {
   from: string;
   to: Array<number>;
   text: string;
 }
 
 export interface multipleMessagesToMultipleDifferentDestinations {
-  messages: Array<Message2>;
+  messages: Array<singleMessageMultipleDestinations>;
 }
 
 /////////////
