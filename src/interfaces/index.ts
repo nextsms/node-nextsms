@@ -12,7 +12,7 @@ export interface multipleMessagesToMultipleDestinations {
 
 export interface singleMessageMultipleDestinations {
   from: string;
-  to: Array<number>;
+  to: string[];
   text: string;
 }
 
