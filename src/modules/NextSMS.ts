@@ -1,4 +1,5 @@
-import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import axios from 'axios';
+import { AxiosError, AxiosResponse, AxiosRequestHeaders } from 'axios';
 import {
   deductCustomer,
   multipleMessagesToMultipleDestinations,
@@ -29,26 +30,25 @@ import {
  * @class NextSMS
  * @since 0.0.1
  * @author Alpha Olomi <hello@alphaolomi.com>
- *
  */
 class NextSMS {
   /**
-   * environment
+   * Environment
    */
   private environment: 'testing' | 'production';
 
   /**
-   * key
+   * Key
    */
   private key: string;
 
   /**
-   * header
+   * Header
    */
   private header: AxiosRequestHeaders;
 
   /**
-   * root
+   * Root Url
    */
   private ROOT_URL = 'https://messaging-service.co.tz/';
 
@@ -66,21 +66,23 @@ class NextSMS {
       Authorization: `Basic ${this.key}`,
       'Content-Type': 'application/json',
       Accept: 'application/json',
-    };
+    } as AxiosRequestHeaders;
   }
 
   /**
    *
    * Send Sms to Single destination
    *
-   *
+   * @example
+   * ```
    * {
    *  from : 'NEXTSMS',
    *  to : '255716718040',
    *  text : 'Your message'
    * }
+   * ```
    *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5e466440-829b-4b56-be32-b681e4f81227}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5e466440-829b-4b56-be32-b681e4f81227
    * @returns {Promise}
    */
   singleDestination(data: singleMessageSingleDestination): Promise<any> {
@@ -95,25 +97,26 @@ class NextSMS {
         .then((response: AxiosResponse) => {
           resolve(response.data);
         })
+        
         .catch((error: AxiosError) => {
-          console.log(error);
-          reject(error);
+          reject(error.response);
         });
     });
   }
-
+  
   /**
-   *
-   *  Multiple destinations
+   * Multiple destinations
    * For sending the single messages to multiple phone numbers,
-   *
+   * @example
+   * ```
    * {
    *  from = 'NEXTSMS',
    *  to = ['255655912841', '255716718040'],
    *  text = 'Your message'
    * }
+   * ```
    *
-   * * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#2936eed4-6027-45e7-92c9-fe1cd7df140b}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#2936eed4-6027-45e7-92c9-fe1cd7df140b
    * @returns {Promise}
    */
   multipleDestinations(data: singleMessageMultipleDestinations): Promise<any> {
@@ -135,18 +138,20 @@ class NextSMS {
   }
   /**
    *
-   *   Multiple messages to Multiple destinations (Format 1)
-   *
+   * Multiple messages to Multiple destinations (Format 1)
+   * @example
+   * ```
    * {
    *     messages = [
    *         { from: 'NEXTSMS', to: '255716718040', text: 'Your message' },
    *         { from: 'NEXTSMS', to: '255655912841', text: 'Your other message' },
    *     ],
    * }
+   * ```
    * @param data
    *
    *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#b13825ab-8b49-45f5-a4cd-fb7d21aa975a }
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#b13825ab-8b49-45f5-a4cd-fb7d21aa975a
    * @returns {Promise}
    */
   multipleMessagesToMultipleDestinations(data: multipleMessagesToMultipleDestinations): Promise<any> {
@@ -167,9 +172,10 @@ class NextSMS {
   }
 
   /**
-   *
-   *  Multiple messages to Multiple destinations (Format 2)
+   * Multiple messages to Multiple destinations (Format 2)
    * For sending the multiple messages to multiple phone numbers,
+   * @example
+   * ```
    * {
    *     messages: [
    *         {
@@ -184,9 +190,10 @@ class NextSMS {
    *         },
    *     ],
    * }
+   * ```
    *
    *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6916415a-4645-460d-bb3f-a6d6fbd60e4a}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6916415a-4645-460d-bb3f-a6d6fbd60e4a
    * @returns {Promise}
    */
   multipleMessagesToMultipleDifferentDestinations(data: multipleMessagesToMultipleDifferentDestinations): Promise<any> {
@@ -221,7 +228,8 @@ class NextSMS {
    *   start_date - this parameter defines the date from this your sms can start sending, format of Year-month-date example: 2020-10-01.
    *   end_date - this parameter defines the date from this your sms can end sending, format of Year-month-date example: 2021-01-01.
    *
-   *
+   * @example
+   * ```
    *   {
    *     from: 'SENDER',
    *     to: '255716718040',
@@ -229,7 +237,8 @@ class NextSMS {
    *     date: '2020-10-01',
    *     time: '12:00',
    *   }
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#59cc2941-482b-45ab-9721-a7abffc83bba}
+   * ```
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#59cc2941-482b-45ab-9721-a7abffc83bba
    *
    * @param data
    *
@@ -256,10 +265,9 @@ class NextSMS {
   // - Sms Delivery Reports
 
   /**
-   *
    * GET Get delivery reports with messageId
    *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5fc5b186-c4dc-4de0-9d0f-baee93d53c7d}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#5fc5b186-c4dc-4de0-9d0f-baee93d53c7d
    * @returns {Promise}
    */
   getDeliveryReports(): Promise<any> {
@@ -280,12 +288,10 @@ class NextSMS {
 
   /**
    * Get delivery reports with messageId
+   * @param number messageId
    *
    *
-   * @param messageId
-   *
-   *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6402ce4e-d0d4-44ac-8606-a9d12a900974}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#6402ce4e-d0d4-44ac-8606-a9d12a900974
    * @returns {Promise}
    */
   getDeliveryReportsWithMessageId(messageId: number): Promise<any> {
@@ -307,10 +313,10 @@ class NextSMS {
   /**
    *
    * GET Get delivery reports with specific date range
-   * @param sentSince
-   * @param sentUntil
+   * @param string sentSince
+   * @param string sentUntil
    *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#46fc5c9c-0cd4-4356-8cab-1e326e54940a}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#46fc5c9c-0cd4-4356-8cab-1e326e54940a
    * @returns {Promise}
    */
   getDeliveryReportsWithSpecificDateRange(sentSince: string, sentUntil: string): Promise<any> {
@@ -332,13 +338,12 @@ class NextSMS {
   // - Sent Sms Logs
 
   /**
-   *
    * GET Get all sent SMS logs
    * @param from
    * @param limit
    * @param offset
    *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683
    * @returns {Promise}
    */
   getAllSentSmsLogs(from: string, limit: number, offset: number): Promise<any> {
@@ -358,13 +363,14 @@ class NextSMS {
   }
 
   /**
-   *  GET Get all sent SMS logs with optional parameter
-   *
-   *
+   * Get all sent SMS logs with optional parameter
+   * @example
+   * ```
    * from=NEXTSMS
    * to=255716718040
    * sentSince=2020-02-01
    * sentUntil=2020-02-20
+   * ```
    *
    * @param from  string
    * @param to string
@@ -372,7 +378,7 @@ class NextSMS {
    * @param sentUntil string
    *
    *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#493fa3f2-c96d-44cc-892d-b6e166dd0683
    * @returns {Promise}
    */
   getAllSentSms(from: string, to: string, sentSince: string, sentUntil: string): Promise<any> {
@@ -391,10 +397,12 @@ class NextSMS {
     });
   }
 
+  // Sub Customer
+
   /**
-   *
-   * - Sub Customer
-   *   - POST Register Sub Customer
+   * Register Sub Customer
+   * @example
+   * ```
    * {
    *     firstName = 'Api',
    *     lastName = 'Customer',
@@ -404,9 +412,10 @@ class NextSMS {
    *     accountType = 'Sub Customer (Reseller)',
    *     smsPrice = 20,
    * }
+   * ```
    *
    * @param data subCustomer
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#4d5c6a0a-9d16-45e2-ab8e-74211258ca00}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#4d5c6a0a-9d16-45e2-ab8e-74211258ca00
    * @returns {Promise}
    */
   registerSubcustomer(data: subCustomer): Promise<any> {
@@ -435,15 +444,17 @@ class NextSMS {
   }
 
   /**
-   *  Recharge customer
-   *
-   *  {
+   * Recharge customer
+   * @example
+   * ```
+   * {
    *      email = 'example@email.com',
    *      smscount = 5000
-   *  }
+   * }
+   * ```
    *
    * @param data rechargeCustomer
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#d3bd992c-08a8-400d-9b52-41fe6afecf44 }
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#d3bd992c-08a8-400d-9b52-41fe6afecf44
    * @returns {Promise}
    */
   rechargeCustomer(data: rechargeCustomer): Promise<any> {
@@ -475,7 +486,7 @@ class NextSMS {
    *  }
    *
    *  @param data deductCustomer
-   *  {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288}
+   *  @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288
    *  @returns {Promise}
    */
   deductCustomer(data: deductCustomer): Promise<any> {
@@ -496,10 +507,9 @@ class NextSMS {
   }
 
   /**
+   * Get SMS Balance
    *
-   * Get sms balance
-   *
-   * {@link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288}
+   * @link https://documenter.getpostman.com/view/4680389/SW7dX7JL#570c9c63-4dc5-4ef5-aba5-1e4ba6d6d288
    *
    * @returns {Promise}
    */
